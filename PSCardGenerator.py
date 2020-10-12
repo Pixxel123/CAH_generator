@@ -13,6 +13,7 @@ def grouper(iterable, n, fillvalue=None):
 
 
 def json_generator():
+    print("Connecting to Google Sheet...")
     gsheets_url = 'https://spreadsheets.google.com/feeds/cells/1_O1vE52BJOpJcOs-kmh3N79q5PHFG9OhXJ0Yhm2KXq0/2/public/full?alt=json'
     r = requests.get(gsheets_url)
     data = r.json()
@@ -51,7 +52,7 @@ def template_fill(card_text, card_colour, card_special, card_assignee, card_foot
             # Show appropriate face logo layer
             doc.ArtLayers[layer].visible = True
         # Show the rest of the layers
-        if "CardFaceLogo" not in layer:
+        if "CardFaceLogo" not in layer and layer not in special_layers.values():
             doc.ArtLayers[layer].visible = True
     if card_special != "N/A":
         doc.ArtLayers[special_layers[card_special]].visible = True
